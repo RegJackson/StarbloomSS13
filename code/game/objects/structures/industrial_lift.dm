@@ -254,7 +254,9 @@ GLOBAL_LIST_EMPTY(lifts)
 	if(going == DOWN)
 		for(var/mob/living/crushed in destination.contents)
 			to_chat(crushed, span_userdanger("You are crushed by [src]!"))
-			crushed.gib(FALSE,FALSE,FALSE)//the nicest kind of gibbing, keeping everything intact.
+			crushed.adjustBruteLoss(20)//Just FYI this used to be a fucking gib, destroyed all your shit, and IT WASNT LOGGED AT ALL
+			crushed.Paralyze(100)
+			crushed.emote("scream")
 
 	else if(going != UP) //can't really crush something upwards
 		var/atom/throw_target = get_edge_target_turf(src, turn(going, pick(45, -45))) //finds a spot to throw the victim at for daring to be hit by a tram
